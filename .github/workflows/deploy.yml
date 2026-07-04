@@ -19,13 +19,13 @@ jobs:
 
       # Step 2: Clear old build caches to prevent storage buildup
       - name: Prune Docker Builder Cache
-        run: docker compose builder prune -f
+        run: docker builder prune -f
 
       # Step 3: Automatically build the Vite app and restart Nginx
       - name: Deploy Containers
         run: |
           # 1. Move into the workspace where GitHub cloned your files
           cd $GITHUB_WORKSPACE
-          
+
           # 2. Run your build command using the files in this workspace
           docker compose up -d --build
