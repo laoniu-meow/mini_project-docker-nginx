@@ -1,0 +1,25 @@
+# In order Compose files, require format version
+# version: '3.8'
+
+# A service is a container that Docker Compose managers
+services:
+  # Define a service name
+  nginx:
+    # Docker will build an image from your Dockerfile
+    build:
+      # Tell docker the project files for this build are located
+      context: .
+      # Tell docker which Dockerfile should be use
+      dockerfile: ./myApp/Dockerfile
+    # Define container name to build
+    container_name: nginx_web
+    # Define expose container ports to your computer
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+        # We mount our files so we can change configs or certificates without rebuilding the image
+        - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+        - ./nginx/ssl:/etc/nginx/ssl:ro
+    # Tells Docker to automatically restart the container
+    restart: always
