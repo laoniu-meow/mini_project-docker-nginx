@@ -24,5 +24,8 @@ jobs:
       # Step 3: Automatically build the Vite app and restart Nginx
       - name: Deploy Containers
         run: |
-          cd /home/laomeow-ln/practice_docker/my_nginx
+          # 1. Move into the workspace where GitHub cloned your files
+          cd $GITHUB_WORKSPACE
+          
+          # 2. Run your build command using the files in this workspace
           docker compose up -d --build
