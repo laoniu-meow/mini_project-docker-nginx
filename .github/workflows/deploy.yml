@@ -1,0 +1,28 @@
+name: CI/CD Production Deployment
+
+# Trigger the workflow every time code is pushed to the main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Build and Deploy to Local VM
+    # This tells GitHub to run the script inside YOUR Debian VM via the runner we installed
+    runs-on: self-hosted
+
+    steps:
+      # Step 1: Pull the latest code from GitHub into your practice directory
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Clear old build caches to prevent storage buildup
+      - name: Prune Docker Builder Cache
+        run: docker compose builder prune -f
+
+      # Step 3: Automatically build the Vite app and restart Nginx
+      - name: Deploy Containers
+        run: |
+          cd /home/laomeow-ln/practice_docker/my_nginx
+          docker compose up -d --build
