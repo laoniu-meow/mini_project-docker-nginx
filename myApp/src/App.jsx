@@ -18,7 +18,6 @@ function App() {
         <div>
           <h1>Get started</h1>
           <h2>Welcome to my first docker with app</h2>
-          <h3>I am testing the CICD</h3>
           <p>
             Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
           </p>
